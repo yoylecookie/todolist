@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Page Title</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+<style>
+    body {
+        background-color:lightblue;
+        font-family:"Outfit", sans-serif;
+        text-align:center;
+          display: flex;
+  justify-content: center;
+  align-items: center;
+    }
+    #todo {
+        background-color:white;
+        padding:10px;
+        border-radius:25px;
+        width:500px;
+        height:700px;
+    }
+    #input {
+        border:solid grey 2px;
+        padding:5px;
+        border-radius:100px;
+        display:flex;
+        align-items: center;
+    }
+    #input > input {
+        border:none;
+        width:450px;
+        border-radius:100px;
+        height:40px;
+    }
+    #input > input:focus {
+  outline-style: solid;
+  outline-color: #00000000;
+}
+    #input > img {
+        font-size:10px;
+        border-radius:100%;
+        padding:10px;
+        transition-duration:0.4s;
+    }
+    
+    #input > img:hover {
+        background-color:#e8f9ff;
+    }
+    #todos > div {
+        margin-top:10px;
+        display:flex;
+        align-items: center;
+        border:solid lightgrey 2px;
+        border-radius:100px;
+    }
+</style>
+<body>
+<div id="todo">
+    <h1>To do:</h1>
+    <div id="input">
+        <input id="todoput">
+        <img src="https://cdn-icons-png.flaticon.com/128/3524/3524388.png" height="15px" onclick="addtodo()">
+        </div>
+    <div id="todos">
+    </div>
+</div>
+<script>
+    let today = new Date().toDateString();
+    let savedDate = localStorage.getItem('date');
+    if (savedDate !== today) {
+        localStorage.removeItem("storage")
+        localStorage.removeItem("date")
+    }
+    let load = localStorage.getItem('storage') || "";
+    document.getElementById("todos").innerHTML = load
+    function addtodo() {
+    let input = document.getElementById("todoput").value;
+
+    if (input.trim() === "") return;
+
+    document.getElementById("todos").innerHTML += `
+        <div>
+            <input type="checkbox">
+            <p>${input}</p>
+        </div>
+    `;
+    document.getElementById("todoput").value = "";
+    let storage = document.getElementById("todos").innerHTML;
+    localStorage.setItem('storage', storage);
+    localStorage.setItem('date', today);
+}
+</script>
+</body>
+</html>
